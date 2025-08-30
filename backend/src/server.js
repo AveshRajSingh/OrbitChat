@@ -7,7 +7,6 @@ import { functions, inngest } from "./config/inngest.js";
 import {serve} from "inngest/express"
 connectDB();
 
-const port = ENV.PORT;
 app.use(express.json());
 app.use(clerkMiddleware());
 
@@ -17,18 +16,16 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+connectDB()
+  .then(() => console.log("DB Connected"))
+  .catch((err) => console.error("DB connection failed:", err));
 
-const startServer = async () => {
-  try {
-    await connectDB();
-    if(ENV.NODE_ENV !== "production"){
-      app.listen(port, () => console.log(`Server is running on port ${port}`));
-    }
-  } catch (error) {
-    console.error("Error starting server:", error);
-  }
+// ✅ For local dev: run app.listen()
+if (ENV.NODE_ENV !== "production") {
+  const port = ENV.PORT || 5000;
+  app.listen(port, () => {
+    console.log(`Server running locally on port ${port}`);
+  });
 }
-
-startServer();
 
 export default app;
