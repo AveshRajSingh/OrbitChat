@@ -2,6 +2,15 @@ import { Inngest } from "inngest";
 import User from "../models/user.model.js";
 import connectDB from "./db.js";
 
+console.log("connect db successfully");
+// debug logs will remove them after debugging 
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+console.log("RUNNING INNGEST FROM:", __dirname);
 
 // Create a client to send and receive events
 export const inngest = new Inngest({ id: "OrbitChat" });
