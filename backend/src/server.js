@@ -6,7 +6,6 @@ import {clerkMiddleware} from "@clerk/express"
 import { functions, inngest } from "./config/inngest.js";
 import {serve} from "inngest/express"
 import chatRoutes from "./route/chat.routes.js";
-connectDB();
 
 app.use(express.json());
 app.use(clerkMiddleware());
