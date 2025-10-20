@@ -5,16 +5,19 @@ import connectDB from "./config/db.js";
 import {clerkMiddleware} from "@clerk/express"
 import { functions, inngest } from "./config/inngest.js";
 import {serve} from "inngest/express"
+import chatRoutes from "./route/chat.routes.js";
 connectDB();
 
 app.use(express.json());
 app.use(clerkMiddleware());
 
-app.use("/api/inngest", serve({ client: inngest, functions }));
-
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+app.use("/api/inngest", serve({ client: inngest, functions }));
+app.use("/api/chat", chatRoutes);
+
+
 
 connectDB()
   .then(() => console.log("DB Connected"))

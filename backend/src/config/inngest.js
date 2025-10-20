@@ -1,9 +1,8 @@
 import { Inngest } from "inngest";
 import User from "../models/user.model.js";
 import connectDB from "./db.js";
+import { upsertStreamUser , deleteStreamUser} from "./stream.js";
 
-console.log("connect db successfully");
-// debug logs will remove them after debugging 
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 
@@ -30,6 +29,12 @@ const syncUser = inngest.createFunction(
         }
 
         await User.create(newUser);
+        upsertStreamUser({
+            id: newUser.clerkId.toString(),
+            name: newUser.name,
+            image: newUser.image
+        });
+
     }
 
 )
@@ -42,6 +47,7 @@ const deleteUser = inngest.createFunction(
         const {id} = event.data;
 
         await User.deleteOne({clerkId: id});
+        deleteStreamUser(id.toString());
     }
 
 )
