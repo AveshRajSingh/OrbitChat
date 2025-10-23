@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from "react-router";
 import AuthPage from "./pages/AuthPage.jsx";
 import Callpage from "./pages/Callpage.jsx";
 import HomePage from "./pages/HomePage.jsx";
+import Loader from "./components/PageLoader.jsx";
 
 export default function App() {
   const { isSignedIn, isLoaded } = useAuth();
@@ -10,25 +11,7 @@ export default function App() {
   console.log('App render - isLoaded:', isLoaded, 'isSignedIn:', isSignedIn);
 
   if (!isLoaded) {
-    return (
-      <div style={{ 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'center', 
-        minHeight: '100vh',
-        backgroundColor: '#121212'
-      }}>
-        <div style={{
-          width: '48px',
-          height: '48px',
-          border: '4px solid #e5e7eb',
-          borderTopColor: '#9333ea',
-          borderRadius: '50%',
-          animation: 'spin 1s linear infinite'
-        }}></div>
-        <p style={{ marginLeft: '20px', color: 'white' }}>Loading...</p>
-      </div>
-    );
+    return <Loader />; // Show a loading indicator while auth state is loading
   }
   return (
     <>

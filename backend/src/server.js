@@ -6,9 +6,11 @@ import {clerkMiddleware} from "@clerk/express"
 import { functions, inngest } from "./config/inngest.js";
 import {serve} from "inngest/express"
 import chatRoutes from "./route/chat.routes.js";
+import cors from "cors";
 
 app.use(express.json());
 app.use(clerkMiddleware());
+app.use(cors({origin: "http://localhost:5173", credentials: true}));
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
