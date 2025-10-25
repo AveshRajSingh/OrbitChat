@@ -8,8 +8,6 @@ import Loader from "./components/PageLoader.jsx";
 export default function App() {
   const { isSignedIn, isLoaded } = useAuth();
 
-  console.log('App render - isLoaded:', isLoaded, 'isSignedIn:', isSignedIn);
-
   if (!isLoaded) {
     return <Loader />; // Show a loading indicator while auth state is loading
   }

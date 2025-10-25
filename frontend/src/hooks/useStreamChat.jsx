@@ -55,10 +55,13 @@ export const useStreamChat = () => {
     connect();
 
     // cleanup
-    return () => {
-      cancelled = true;
-      client.disconnectUser();
-    };
+   return () => {
+  cancelled = true;
+  if (client && chatClient) {
+    client.disconnectUser().catch(console.error);
+  }
+  setChatClient(null);
+};
   }, [tokenData?.token, user?.id]);
 
   return { chatClient, isLoading, error };

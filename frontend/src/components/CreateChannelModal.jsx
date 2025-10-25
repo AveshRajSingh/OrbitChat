@@ -33,9 +33,10 @@ const CreateChannelModal = ({ onClose }) => {
         const usersOnly = response.users.filter((user) => !user.id.startsWith("recording-"));
 
         setUsers(usersOnly || []);
-      } catch (error) {
-        console.log("Error fetching users");
-        
+      }  catch (error) {
+        console.log("Error fetching users", error);
+        toast.error(error.message || "Failed to fetch users");
+        setError("Failed to fetch users. Please try again.");
         setUsers([]);
       } finally {
         setLoadingUsers(false);

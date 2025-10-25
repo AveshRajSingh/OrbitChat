@@ -71,6 +71,8 @@ const HomePage = () => {
                 </div>
 
                 {/* CHANNEL LIST */}
+                {isLoading && <PageLoader />}
+                {error && <Error message="Error loading channels" />}
                 <ChannelList
                   filters={{ members: { $in: [chatClient?.user?.id] } }}
                   options={{ state: true, watch: true }}
